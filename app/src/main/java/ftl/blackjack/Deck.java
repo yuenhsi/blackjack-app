@@ -1,5 +1,4 @@
 package ftl.blackjack;
-
 // concept of reshuffling and adding all cards once a threshold is hit needs to be implemented. This may be done with a static reshuffle variable.
 
 import java.util.ArrayList;
