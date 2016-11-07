@@ -1,6 +1,8 @@
 package ftl.blackjack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class BlackJackGame {
@@ -23,29 +25,38 @@ public class BlackJackGame {
         pointMap.put(Rank.ACE, -1);
     }
 
-    public int[] getPoints(Card[] cards) {
-        int total = 0;
+    public List<Integer> getPoints(Card[] cards) {
+        int totalExclAce = 0;
         int aceCount = 0;
         // total of cards excluding aces
         for (int i = 0; i < cards.length; i++) {
             int point = BlackJackGame.pointMap.get(cards[i].getRank());
             if (point != -1) {
-                total += point;
+                totalExclAce += point;
             } else {
                 aceCount++;
             }
         }
         // combinations of total points given number of aces
-        int[] points = getAceCombinations(aceCount);
+        List<Integer> points = getAceCombinations(new ArrayList<Integer>(), aceCount);
 
-        for (int i = 0; i < points.length; i++) {
-            points[i] += total;
+        for (int i = 0; i < points.size(); i++) {
+            points.set(i, points.get(i) + totalExclAce);
         }
         return points;
     }
 
-    public int[] getAceCombinations(int aceCount) {
-        int[] aceCombinations = new int[]{};
-        return aceCombinations;
+    public List<Integer> getAceCombinations(List<Integer> sums, int aceCount) {
+        List<Integer> newSums = new ArrayList<Integer>();
+        for (int sum : sums) {
+            newSums.add(sum + 1);
+            newSums.add(sum + 11);
+        }
+        int newAceCount = --aceCount;
+        if (newAceCount == 0) {
+            return newSums;
+        } else {
+            return getAceCombinations(newSums, newAceCount);
+        }
     }
 }
