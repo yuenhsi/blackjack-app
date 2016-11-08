@@ -47,10 +47,15 @@ public class BlackJackGame {
     }
 
     public List<Integer> getAceCombinations(List<Integer> sums, int aceCount) {
-        List<Integer> newSums = new ArrayList<Integer>();
+        List<Integer> newSums = new ArrayList<>();
+
         for (int sum : sums) {
             newSums.add(sum + 1);
             newSums.add(sum + 11);
+        }
+        if (sums.size() == 0) {
+            newSums.add(1);
+            newSums.add(11);
         }
         int newAceCount = --aceCount;
         if (newAceCount == 0) {
