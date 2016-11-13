@@ -1,11 +1,12 @@
 package ftl.blackjack;
 
-        import android.support.v7.app.AppCompatActivity;
-        import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
 
-        import java.util.LinkedHashMap;
-        import java.util.LinkedList;
-        import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
 
 public class BlackJackGameActivity extends AppCompatActivity {
 
@@ -13,11 +14,21 @@ public class BlackJackGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blackjack_game);
-        Map hands = setupGame(1);
-        int i = 1;
+        Map<String, LinkedList<Card>> hands = setupGame(1);
+        LinkedList<Card> dealerHand = hands.get("dealerHand");
+        LinkedList<Card> playerHand = hands.get("playerOneHand");
+
+        TextView dealer1 = (TextView) findViewById(R.id.dealer1);
+        TextView dealer2 = (TextView) findViewById(R.id.dealer2);
+        TextView player1 = (TextView) findViewById(R.id.player1);
+        TextView player2 = (TextView) findViewById(R.id.player2);
+        dealer1.setText(dealerHand.get(0).toString());
+        dealer2.setText(dealerHand.get(1).toString());
+        player1.setText(playerHand.get(0).toString());
+        player2.setText(playerHand.get(1).toString());
     }
 
-    public Map setupGame(int playerCount) {
+    public Map<String, LinkedList<Card>> setupGame(int playerCount) {
         Deck deck = new Deck();
         Map<String, LinkedList<Card>> hands = new LinkedHashMap<String, LinkedList<Card>>();
 
