@@ -4,19 +4,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.Map;
 
 public class BlackJackGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // expand to take number of players as an argument
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blackjack_game);
-        Map<String, LinkedList<Card>> hands = setupGame(1);
-        LinkedList<Card> dealerHand = hands.get("dealerHand");
-        LinkedList<Card> playerHand = hands.get("playerOneHand");
+
+        Deck deck = new Deck();
+        LinkedList<Card> dealerHand = getHand(deck);
+        LinkedList<Card> playerHand = getHand(deck);
 
         TextView dealer1 = (TextView) findViewById(R.id.dealer1);
         TextView dealer2 = (TextView) findViewById(R.id.dealer2);
@@ -28,21 +28,11 @@ public class BlackJackGameActivity extends AppCompatActivity {
         player2.setText(playerHand.get(1).toString());
     }
 
-    public Map<String, LinkedList<Card>> setupGame(int playerCount) {
-        Deck deck = new Deck();
-        Map<String, LinkedList<Card>> hands = new LinkedHashMap<String, LinkedList<Card>>();
-
-        LinkedList<Card> dealerHand = new LinkedList<Card>();
-        dealerHand.add(deck.draw());
-        dealerHand.add(deck.draw());
-        hands.put("dealerHand", dealerHand);
-
-        // handle case of multiple players
-        LinkedList<Card> playerHand = new LinkedList<Card>();
-        playerHand.add(deck.draw());
-        playerHand.add(deck.draw());
-        hands.put("playerOneHand", playerHand);
-        return hands;
+    public LinkedList<Card> getHand(Deck deck) {
+        LinkedList<Card> hand = new LinkedList<Card>();
+        hand.add(deck.draw());
+        hand.add(deck.draw());
+        return hand;
     }
 }
 
