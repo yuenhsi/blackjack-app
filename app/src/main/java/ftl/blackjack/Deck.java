@@ -10,6 +10,7 @@ public class Deck {
     private ArrayList<Card> deck;
 
     public Deck() {
+        deck = new ArrayList<>();
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 Card card = new Card(suit, rank);
