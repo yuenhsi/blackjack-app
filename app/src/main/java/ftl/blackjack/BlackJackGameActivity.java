@@ -10,10 +10,10 @@ public class BlackJackGameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // expand to take number of players as an argument
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blackjack_game);
 
+        // expand to take number of players as an argument
         Deck deck = new Deck();
         LinkedList<Card> dealerHand = getHand(deck);
         LinkedList<Card> playerHand = getHand(deck);
