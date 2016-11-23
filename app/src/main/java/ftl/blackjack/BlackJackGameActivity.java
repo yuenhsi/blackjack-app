@@ -1,12 +1,16 @@
 package ftl.blackjack;
 
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 import java.util.LinkedList;
 
 public class BlackJackGameActivity extends AppCompatActivity {
+
+    boolean listening = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,18 @@ public class BlackJackGameActivity extends AppCompatActivity {
         dealer2.setText(dealerHand.get(1).toString());
         player1.setText(playerHand.get(0).toString());
         player2.setText(playerHand.get(1).toString());
+
+        listening = true;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = MotionEventCompat.getActionMasked(event);
+
+        switch (action) {
+            default :
+                return true;
+        }
     }
 
     public LinkedList<Card> getHand(Deck deck) {
